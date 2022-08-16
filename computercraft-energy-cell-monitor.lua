@@ -1,22 +1,24 @@
 local function monitorSetup()
-    local monitor = peripheral.find("monitor")
-    monitor.clear()
-    monitor.setCursorPos(1,1)
+    local m = peripheral.find("monitor")
+    m.clear()
+    m.setCursorPos(1,1)
+    return m
 end
 
 local function cellSetup()
-    local cell = peripheral.wrap("back")
+    local c = peripheral.wrap("back")
+    return c
 end
 
 local function printCellPercent(m, c)
-    Menergy = c.getMaxEnergyStored()
-    Senergy = c.getEnergyStored()
+    Menergy = c.getMaxEnergyStored("unknown")
+    Senergy = c.getEnergyStored("unknown")
     per = (Senergy / Menergy) * 100
 
     m.write(per)
 end
 
-monitorSetup()
-cellSetup()
+local monitor = monitorSetup()
+local cell = cellSetup()
 
 printCellPercent(monitor, cell)
